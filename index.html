@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ur" dir="ltr">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="theme-color" content="#10b981"/>
 <meta name="description" content="HisaabAI - AI-powered Urdu bookkeeping for Pakistani small traders"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
 <title>HisaabAI — حساب AI</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%2310b981'/><text x='50' y='66' text-anchor='middle' font-size='46' fill='white' font-family='serif'>حا</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,318 +19,163 @@
   --brand:#10b981;--brand-dark:#059669;--brand-darker:#047857;--brand-light:#d1fae5;--brand-pale:#ecfdf5;
   --red:#ef4444;--red-light:#fef2f2;--amber:#f59e0b;--amber-light:#fffbeb;--blue:#3b82f6;--blue-light:#eff6ff;
   --g0:#f9fafb;--g1:#f3f4f6;--g2:#e5e7eb;--g3:#d1d5db;--g4:#9ca3af;--g5:#6b7280;--g6:#4b5563;--g7:#374151;--g8:#1f2937;--g9:#111827;
-  --white:#ffffff;--black:#000000;
   --fu:'Noto Nastaliq Urdu',serif;--fm:'Inter',system-ui,-apple-system,sans-serif;
   --r-sm:10px;--r-md:16px;--r-lg:20px;--r-xl:24px;--r-full:9999px;
-  --shadow-sm:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
-  --shadow-md:0 4px 12px rgba(0,0,0,.1),0 2px 4px rgba(0,0,0,.06);
-  --shadow-lg:0 10px 30px rgba(0,0,0,.12),0 4px 8px rgba(0,0,0,.06);
-  --shadow-brand:0 8px 24px rgba(16,185,129,.35);
-  --nav-h:72px;--header-h:60px;
+  --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
+  --sh-md:0 4px 12px rgba(0,0,0,.1),0 2px 4px rgba(0,0,0,.06);
+  --sh-brand:0 8px 24px rgba(16,185,129,.35);
+  --nav-h:72px;--header-h:64px;
   --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
 }
-html{height:100%;overflow:hidden}
-body{font-family:var(--fm);background:var(--g0);color:var(--g8);height:100%;overflow:hidden;-webkit-font-smoothing:antialiased}
-#root{height:100%;display:flex;flex-direction:column}
-.app{display:flex;flex-direction:column;height:100%;max-width:430px;margin:0 auto;background:var(--white);position:relative;overflow:hidden}
-/* HEADER */
-.header{
-  background:var(--white);
-  padding:calc(var(--safe-top) + 12px) 20px 12px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--g1);
-  position:relative;z-index:10;
-  min-height:var(--header-h);
-}
+html,body{height:100%;overflow:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--fm);background:#e5e7eb;color:var(--g8)}
+#root{height:100%;display:flex;align-items:center;justify-content:center;background:#e5e7eb}
+.app{display:flex;flex-direction:column;height:100%;width:100%;max-width:430px;background:#fff;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,.15)}
+.header{background:#fff;padding:calc(var(--safe-top) + 12px) 20px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--g1);min-height:var(--header-h);position:relative;z-index:10}
 .header-brand{display:flex;align-items:center;gap:10px}
-.header-logo{
-  width:38px;height:38px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));
-  border-radius:12px;display:flex;align-items:center;justify-content:center;
-  color:var(--white);font-size:16px;font-family:var(--fu);font-weight:700;
-  box-shadow:var(--shadow-brand);
-}
-.header-name{display:flex;flex-direction:column;line-height:1.1}
-.header-name .en{font-size:17px;font-weight:700;color:var(--g9);letter-spacing:-.3px}
-.header-name .ur{font-family:var(--fu);font-size:14px;color:var(--brand-dark);font-weight:600}
+.header-logo{width:38px;height:38px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;font-family:var(--fu);font-weight:700;box-shadow:var(--sh-brand);flex-shrink:0}
+.header-name .en{font-size:17px;font-weight:700;color:var(--g9);letter-spacing:-.3px;display:block}
+.header-name .ur{font-family:var(--fu);font-size:13px;color:var(--brand-dark);display:block}
 .header-right{display:flex;align-items:center;gap:8px}
-.avatar-btn{
-  width:36px;height:36px;background:linear-gradient(135deg,var(--brand-light),var(--brand));
-  border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  font-size:15px;color:var(--brand-darker);
-}
-.notif-btn{
-  width:36px;height:36px;background:var(--g1);border-radius:50%;border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;font-size:17px;position:relative;
-}
-.notif-dot{
-  position:absolute;top:6px;right:6px;width:8px;height:8px;
-  background:var(--red);border-radius:50%;border:2px solid var(--white);
-}
-/* SCROLL CONTENT */
-.scroll-body{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav-h) + var(--safe-bottom) + 16px)}
-/* BOTTOM NAV */
-.bottom-nav{
-  position:absolute;bottom:0;left:0;right:0;
-  height:calc(var(--nav-h) + var(--safe-bottom));
-  background:var(--white);border-top:1px solid var(--g2);
-  display:flex;align-items:flex-start;padding-top:10px;padding-bottom:var(--safe-bottom);
-  z-index:100;box-shadow:0 -4px 16px rgba(0,0,0,.06);
-}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-  background:none;border:none;cursor:pointer;padding:4px 0;
-  font-family:var(--fm);
-}
-.nav-item.voice-nav{position:relative;margin-top:-28px}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;background:var(--g1);position:relative}
+.notif-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid #fff}
+.scroll-body{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav-h) + var(--safe-bottom) + 8px)}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:calc(var(--nav-h) + var(--safe-bottom));background:#fff;border-top:1px solid var(--g2);display:flex;align-items:flex-start;padding-top:8px;padding-bottom:var(--safe-bottom);z-index:100;box-shadow:0 -4px 16px rgba(0,0,0,.06)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:4px 0;font-family:var(--fm)}
+.nav-item.voice-nav{margin-top:-26px}
 .nav-icon{font-size:22px;line-height:1;transition:transform .2s}
-.nav-label{font-size:10px;font-weight:500;color:var(--g4);transition:color .2s;letter-spacing:.2px}
+.nav-label{font-size:10px;font-weight:500;color:var(--g4);letter-spacing:.2px}
 .nav-item.active .nav-label{color:var(--brand)}
 .nav-item.active .nav-icon{transform:scale(1.1)}
-.voice-fab{
-  width:60px;height:60px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  box-shadow:var(--shadow-brand);border:3px solid var(--white);
-  font-size:26px;
-}
-.voice-fab.recording{background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 8px 24px rgba(239,68,68,.4)}
-.nav-item.voice-nav .nav-label{margin-top:6px}
-/* DASHBOARD */
+.voice-fab{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-dark));display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:var(--sh-brand);border:3px solid #fff}
+.voice-fab.rec{background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 8px 24px rgba(239,68,68,.4)}
 .page{padding:16px}
-.greeting-card{
-  background:linear-gradient(135deg,var(--brand-darker) 0%,var(--brand-dark) 50%,#065f46 100%);
-  border-radius:var(--r-xl);padding:20px;margin-bottom:16px;color:var(--white);
-  position:relative;overflow:hidden;
-}
-.greeting-card::before{
-  content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;
-  background:rgba(255,255,255,.08);border-radius:50%;
-}
-.greeting-card::after{
-  content:'';position:absolute;bottom:-20px;right:40px;width:80px;height:80px;
-  background:rgba(255,255,255,.05);border-radius:50%;
-}
-.greeting-text{font-size:13px;opacity:.8;margin-bottom:2px}
-.greeting-name{font-size:20px;font-weight:700;margin-bottom:12px}
-.greeting-balance{font-size:13px;opacity:.75;margin-bottom:4px}
-.greeting-amount{font-size:32px;font-weight:800;letter-spacing:-1px}
-.greeting-ur{font-family:var(--fu);font-size:14px;opacity:.7;margin-top:6px}
-
+.greeting-card{background:linear-gradient(135deg,var(--brand-darker) 0%,var(--brand-dark) 50%,#065f46 100%);border-radius:var(--r-xl);padding:20px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden}
+.greeting-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.07);border-radius:50%}
+.greeting-card::after{content:'';position:absolute;bottom:-20px;right:40px;width:80px;height:80px;background:rgba(255,255,255,.05);border-radius:50%}
+.g-sub{font-size:13px;opacity:.8;margin-bottom:2px}
+.g-name{font-size:19px;font-weight:700;margin-bottom:10px}
+.g-bal-label{font-size:12px;opacity:.75;margin-bottom:3px}
+.g-amount{font-size:30px;font-weight:800;letter-spacing:-1px}
+.g-ur{font-family:var(--fu);font-size:13px;opacity:.7;margin-top:5px}
 .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.stat-card{
-  background:var(--white);border-radius:var(--r-lg);padding:14px;
-  box-shadow:var(--shadow-sm);border:1px solid var(--g1);
-}
+.stat-card{background:#fff;border-radius:var(--r-lg);padding:14px;box-shadow:var(--sh);border:1px solid var(--g1)}
 .stat-icon-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.stat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.stat-icon.green{background:var(--brand-pale)}
-.stat-icon.red{background:var(--red-light)}
-.stat-icon.blue{background:var(--blue-light)}
-.stat-icon.amber{background:var(--amber-light)}
-.stat-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:var(--r-full);letter-spacing:.2px}
-.stat-badge.up{background:var(--brand-pale);color:var(--brand-darker)}
-.stat-badge.down{background:var(--red-light);color:#b91c1c}
-.stat-label{font-size:11px;color:var(--g4);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.stat-label .ur{font-family:var(--fu);font-size:11px;text-transform:none;letter-spacing:0;margin-right:4px;color:var(--g4)}
-.stat-value{font-size:22px;font-weight:700;color:var(--g9);letter-spacing:-.5px}
-.stat-value.green{color:var(--brand-dark)}.stat-value.red{color:var(--red)}.stat-value.blue{color:var(--blue)}.stat-value.amber{color:var(--amber)}
-
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.section-title{font-size:16px;font-weight:700;color:var(--g9)}
-.section-title .ur{font-family:var(--fu);font-size:14px;color:var(--g4);margin-right:6px}
-.see-all{font-size:13px;color:var(--brand);font-weight:500;background:none;border:none;cursor:pointer}
-
-.tx-card{background:var(--white);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);border:1px solid var(--g1);overflow:hidden;margin-bottom:16px}
-.tx-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--g1)}
+.stat-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.si-g{background:var(--brand-pale)}.si-r{background:var(--red-light)}.si-b{background:var(--blue-light)}.si-a{background:var(--amber-light)}
+.stat-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:var(--r-full)}
+.sb-up{background:var(--brand-pale);color:var(--brand-darker)}.sb-dn{background:var(--red-light);color:#b91c1c}.sb-ok{background:var(--amber-light);color:#92400e}
+.stat-label{font-size:10px;color:var(--g4);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.stat-label .ur{font-family:var(--fu);text-transform:none;letter-spacing:0;margin-right:4px;font-size:11px}
+.stat-value{font-size:20px;font-weight:700;letter-spacing:-.5px}
+.sv-g{color:var(--brand-dark)}.sv-r{color:var(--red)}.sv-b{color:var(--blue)}.sv-a{color:var(--amber)}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sec-title{font-size:15px;font-weight:700;color:var(--g9)}
+.sec-title .ur{font-family:var(--fu);font-size:13px;color:var(--g4);margin-right:5px}
+.see-all{font-size:12px;color:var(--brand);font-weight:500;background:none;border:none;cursor:pointer}
+.tx-list{background:#fff;border-radius:var(--r-xl);box-shadow:var(--sh);border:1px solid var(--g1);overflow:hidden}
+.tx-item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--g1)}
 .tx-item:last-child{border-bottom:none}
-.tx-avatar{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.tx-avatar.in{background:var(--brand-pale)}.tx-avatar.out{background:var(--red-light)}
+.tx-av{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.tx-av.in{background:var(--brand-pale)}.tx-av.out{background:var(--red-light)}
 .tx-info{flex:1;min-width:0}
-.tx-name{font-size:14px;font-weight:600;color:var(--g8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tx-name-ur{font-family:var(--fu);font-size:12px;color:var(--g4);display:block}
-.tx-date{font-size:11px;color:var(--g4);margin-top:2px}
-.tx-amount{font-size:15px;font-weight:700;text-align:right}
-.tx-amount.in{color:var(--brand-dark)}.tx-amount.out{color:var(--red)}
-.tx-amount-label{font-size:10px;color:var(--g4);text-align:right;margin-top:2px;font-weight:500}
+.tx-name{font-size:13px;font-weight:600;color:var(--g8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-ur{font-family:var(--fu);font-size:12px;color:var(--g4);display:block;direction:rtl;text-align:right}
+.tx-date{font-size:11px;color:var(--g4);margin-top:1px}
+.tx-right{text-align:right}
+.tx-amt{font-size:14px;font-weight:700}
+.tx-amt.in{color:var(--brand-dark)}.tx-amt.out{color:var(--red)}
+.tx-type-badge{font-size:10px;color:var(--g4);margin-top:1px;font-family:var(--fu)}
+.empty{text-align:center;padding:32px 20px;color:var(--g4)}
+.empty-icon{font-size:40px;margin-bottom:10px}
+.empty-text{font-size:14px}
+</style>
 /* VOICE PAGE */
-.voice-page{
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  min-height:calc(100vh - var(--header-h) - var(--nav-h));
-  padding:24px 20px;
-  background:linear-gradient(180deg,#ecfdf5 0%,#ffffff 100%);
-}
-.voice-hero{display:flex;flex-direction:column;align-items:center;padding-top:20px}
-.voice-title{font-size:22px;font-weight:800;color:var(--g9);text-align:center;margin-bottom:4px}
-.voice-subtitle{font-family:var(--fu);font-size:22px;color:var(--brand-dark);text-align:center;margin-bottom:8px;direction:rtl}
-.voice-desc{font-size:14px;color:var(--g5);text-align:center;margin-bottom:40px;line-height:1.6;max-width:280px}
-
-/* THE HERO MIC BUTTON */
-.mic-container{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:40px}
-.mic-ring-outer{
-  position:absolute;width:180px;height:180px;border-radius:50%;
-  border:2px solid rgba(16,185,129,.2);
-  animation:ringPulse 2.5s ease-in-out infinite;
-}
-.mic-ring-mid{
-  position:absolute;width:148px;height:148px;border-radius:50%;
-  border:2px solid rgba(16,185,129,.3);
-  animation:ringPulse 2.5s ease-in-out infinite .4s;
-}
-.mic-ring-inner{
-  position:absolute;width:116px;height:116px;border-radius:50%;
-  background:rgba(16,185,129,.08);
-  animation:ringPulse 2.5s ease-in-out infinite .8s;
-}
-.mic-btn{
-  width:90px;height:90px;border-radius:50%;
-  background:linear-gradient(145deg,var(--brand),var(--brand-darker));
-  border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:38px;
-  box-shadow:0 12px 32px rgba(16,185,129,.45),0 4px 12px rgba(16,185,129,.3);
-  transition:all .3s cubic-bezier(.34,1.56,.64,1);
-  position:relative;z-index:2;
-  -webkit-tap-highlight-color:transparent;
-}
-.mic-btn:active{transform:scale(.94)}
-.mic-btn.recording{
-  background:linear-gradient(145deg,#ef4444,#dc2626);
-  box-shadow:0 12px 32px rgba(239,68,68,.45),0 4px 12px rgba(239,68,68,.3);
-  animation:micPulse 1.2s ease-in-out infinite;
-}
-.mic-btn.recording .mic-ring-outer,.mic-btn.recording .mic-ring-mid{border-color:rgba(239,68,68,.3)}
-@keyframes ringPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.6}}
-@keyframes micPulse{0%,100%{transform:scale(1);box-shadow:0 12px 32px rgba(239,68,68,.45)}50%{transform:scale(1.05);box-shadow:0 16px 40px rgba(239,68,68,.6)}}
-
-.mic-status{
-  font-size:15px;font-weight:600;color:var(--g6);text-align:center;margin-bottom:8px;
-  min-height:24px;transition:color .3s;
-}
-.mic-status.listening{color:var(--brand-dark)}
-.mic-status.recording{color:var(--red)}
-.mic-wave{display:flex;align-items:center;gap:3px;height:32px;margin-bottom:24px;opacity:0;transition:opacity .3s}
-.mic-wave.active{opacity:1}
-.wave-bar{width:4px;background:var(--brand);border-radius:2px;animation:waveBounce .8s ease-in-out infinite}
-.wave-bar:nth-child(1){animation-delay:.0s;height:12px}
-.wave-bar:nth-child(2){animation-delay:.1s;height:22px}
-.wave-bar:nth-child(3){animation-delay:.2s;height:30px}
-.wave-bar:nth-child(4){animation-delay:.3s;height:22px}
-.wave-bar:nth-child(5){animation-delay:.4s;height:16px}
-.wave-bar:nth-child(6){animation-delay:.3s;height:28px}
-.wave-bar:nth-child(7){animation-delay:.2s;height:18px}
-@keyframes waveBounce{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
-
-.voice-result-card{
-  width:100%;background:var(--white);border-radius:var(--r-xl);
-  padding:20px;box-shadow:var(--shadow-md);border:1px solid var(--g1);
-  margin-bottom:16px;
-}
-.voice-result-ur{
-  font-family:var(--fu);font-size:20px;color:var(--g8);text-align:right;
-  direction:rtl;margin-bottom:14px;line-height:1.7;
-  padding:12px 14px;background:var(--brand-pale);border-radius:var(--r-md);
-}
-.parsed-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.parsed-item{background:var(--g0);border-radius:var(--r-sm);padding:10px 12px}
-.parsed-key{font-size:11px;color:var(--g4);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.parsed-val{font-size:14px;font-weight:600;color:var(--g8)}
-.parsed-val.income{color:var(--brand-dark)}.parsed-val.expense{color:var(--red)}
-
-.btn{
-  width:100%;padding:15px;border:none;border-radius:var(--r-lg);
-  font-size:15px;font-weight:600;cursor:pointer;font-family:var(--fm);
-  transition:all .2s;
-}
-.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:var(--white);box-shadow:var(--shadow-brand)}
+.voice-page{display:flex;flex-direction:column;align-items:center;padding:20px 20px 0;background:linear-gradient(180deg,#ecfdf5 0%,#fff 60%);min-height:100%}
+.v-title{font-size:21px;font-weight:800;color:var(--g9);text-align:center;margin-bottom:3px}
+.v-subtitle{font-family:var(--fu);font-size:20px;color:var(--brand-dark);text-align:center;margin-bottom:6px}
+.v-desc{font-size:13px;color:var(--g5);text-align:center;line-height:1.6;max-width:280px;margin-bottom:32px}
+.mic-wrap{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+.ring{position:absolute;border-radius:50%;border:2px solid rgba(16,185,129,.2);animation:rp 2.5s ease-in-out infinite}
+.ring1{width:180px;height:180px;animation-delay:0s}
+.ring2{width:148px;height:148px;animation-delay:.35s}
+.ring3{width:116px;height:116px;background:rgba(16,185,129,.07);animation-delay:.7s;border:none}
+@keyframes rp{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.07);opacity:.5}}
+.mic-btn{width:88px;height:88px;border-radius:50%;background:linear-gradient(145deg,var(--brand),var(--brand-darker));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 12px 32px rgba(16,185,129,.45);transition:all .25s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:2}
+.mic-btn:active{transform:scale(.93)}
+.mic-btn.rec{background:linear-gradient(145deg,#ef4444,#dc2626);box-shadow:0 12px 32px rgba(239,68,68,.45);animation:mp 1.2s ease-in-out infinite}
+@keyframes mp{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.mic-status{font-size:14px;font-weight:600;color:var(--g6);text-align:center;min-height:22px;margin-bottom:4px}
+.mic-status.listening{color:var(--brand-dark);animation:blink 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+.mic-hint{font-size:12px;color:var(--g4);text-align:center;margin-bottom:16px}
+.wave-row{display:flex;align-items:center;gap:3px;height:28px;margin-bottom:20px;opacity:0;transition:opacity .3s}
+.wave-row.on{opacity:1}
+.wbar{width:4px;background:var(--brand);border-radius:2px;animation:wb .8s ease-in-out infinite}
+.wbar:nth-child(1){height:8px;animation-delay:.0s}.wbar:nth-child(2){height:18px;animation-delay:.1s}.wbar:nth-child(3){height:26px;animation-delay:.2s}.wbar:nth-child(4){height:18px;animation-delay:.3s}.wbar:nth-child(5){height:12px;animation-delay:.4s}.wbar:nth-child(6){height:24px;animation-delay:.3s}.wbar:nth-child(7){height:16px;animation-delay:.2s}
+@keyframes wb{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.result-card{width:100%;background:#fff;border-radius:var(--r-xl);padding:18px;box-shadow:var(--sh-md);border:1px solid var(--g1);margin-bottom:12px}
+.result-ur{font-family:var(--fu);font-size:18px;color:var(--g8);text-align:right;direction:rtl;margin-bottom:14px;padding:10px 14px;background:var(--brand-pale);border-radius:var(--r-md);line-height:1.8}
+.parsed-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.p-item{background:var(--g0);border-radius:var(--r-sm);padding:10px 12px}
+.p-key{font-size:10px;color:var(--g4);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.p-val{font-size:14px;font-weight:600;color:var(--g8)}
+.p-val.in{color:var(--brand-dark)}.p-val.out{color:var(--red)}
+.btn{width:100%;padding:14px;border:none;border-radius:var(--r-lg);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--fm);transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;box-shadow:var(--sh-brand)}
 .btn-primary:active{transform:scale(.98)}
 .btn-outline{background:var(--g0);color:var(--g6);border:1.5px solid var(--g2);margin-top:8px}
-
-.voice-examples{width:100%}
-.examples-title{font-size:13px;font-weight:600;color:var(--g5);margin-bottom:10px;text-align:center;letter-spacing:.3px}
-.example-chip{
-  display:flex;align-items:center;gap:8px;
-  background:var(--white);border:1.5px solid var(--g2);border-radius:var(--r-full);
-  padding:10px 16px;margin-bottom:8px;cursor:pointer;transition:all .2s;
-}
-.example-chip:active{background:var(--brand-pale);border-color:var(--brand)}
-.example-chip .chip-ur{font-family:var(--fu);font-size:15px;color:var(--g7);direction:rtl;flex:1;text-align:right}
-.example-chip .chip-en{font-size:12px;color:var(--g4)}
+.examples{width:100%}
+.ex-title{font-size:11px;font-weight:600;color:var(--g4);margin-bottom:10px;text-align:center;letter-spacing:.5px}
+.ex-chip{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--g2);border-radius:var(--r-full);padding:10px 16px;margin-bottom:8px;cursor:pointer;transition:all .2s}
+.ex-chip:active{background:var(--brand-pale);border-color:var(--brand)}
+.ex-ur{font-family:var(--fu);font-size:14px;color:var(--g7);direction:rtl;flex:1;text-align:right}
 /* REPORTS */
-.chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.chart-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .period-tabs{display:flex;background:var(--g1);border-radius:var(--r-sm);padding:3px;gap:2px}
-.period-tab{
-  padding:5px 12px;border:none;background:transparent;border-radius:7px;
-  font-size:12px;font-weight:500;color:var(--g5);cursor:pointer;transition:all .2s;font-family:var(--fm);
-}
-.period-tab.active{background:var(--white);color:var(--g9);box-shadow:var(--shadow-sm)}
-
-.chart-wrap{padding:8px 0 16px}
-.chart-bars{display:flex;align-items:flex-end;gap:6px;height:140px;padding:0 4px}
-.chart-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:0}
-.chart-pair{display:flex;align-items:flex-end;gap:2px;height:120px}
-.bar{border-radius:6px 6px 0 0;min-height:4px;transition:height .6s cubic-bezier(.34,1.56,.64,1);cursor:pointer}
-.bar.inc{background:linear-gradient(180deg,#34d399,#10b981)}
-.bar.exp{background:linear-gradient(180deg,#f87171,#ef4444)}
-.bar:hover{opacity:.8;transform:scaleX(1.1)}
-.bar-day{font-size:9px;color:var(--g4);margin-top:6px;text-align:center;letter-spacing:.2px}
-.bar-day-ur{font-family:var(--fu);font-size:10px;color:var(--g4);display:block;text-align:center;line-height:1}
-.chart-legend{display:flex;justify-content:center;gap:20px;margin-top:4px}
-.legend{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--g6)}
-.legend-dot{width:10px;height:10px;border-radius:3px}
-
-.summary-chips{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
-.summary-chip{
-  background:var(--white);border-radius:var(--r-lg);padding:12px;
-  text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--g1);
-}
-.chip-label{font-size:10px;color:var(--g4);font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
-.chip-val{font-size:15px;font-weight:700;letter-spacing:-.4px}
-
-/* CREDIT SCORE */
-.score-hero{
-  background:linear-gradient(135deg,var(--brand-darker),var(--brand));
-  border-radius:var(--r-xl);padding:28px 20px;text-align:center;
-  margin-bottom:16px;color:var(--white);position:relative;overflow:hidden;
-}
-.score-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:rgba(255,255,255,.07);border-radius:50%}
-.score-label{font-size:13px;opacity:.8;margin-bottom:4px;font-weight:500}
-.score-number{font-size:64px;font-weight:800;line-height:1;letter-spacing:-2px;margin-bottom:4px}
-.score-status{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(255,255,255,.2);border-radius:var(--r-full);
-  padding:5px 14px;font-size:13px;font-weight:600;
-}
-.score-ur{font-family:var(--fu);font-size:16px;opacity:.75;margin-top:10px}
-
-.gauge-svg-wrap{margin:4px auto 16px;display:block}
-.factors-card{background:var(--white);border-radius:var(--r-xl);padding:20px;box-shadow:var(--shadow-sm);border:1px solid var(--g1)}
-.factors-title{font-size:15px;font-weight:700;color:var(--g9);margin-bottom:16px}
-.factor-row{margin-bottom:14px}
-.factor-row:last-child{margin-bottom:0}
-.factor-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.factor-name{font-size:13px;font-weight:600;color:var(--g7)}
-.factor-name-ur{font-family:var(--fu);font-size:12px;color:var(--g4)}
-.factor-pct{font-size:13px;font-weight:700;color:var(--g9)}
-.factor-track{height:8px;background:var(--g1);border-radius:var(--r-full);overflow:hidden}
-.factor-fill{height:100%;border-radius:var(--r-full);transition:width .8s cubic-bezier(.34,1.56,.64,1)}
-
-/* QUICK ACTION FAB */
-.quick-add{
-  position:absolute;right:20px;bottom:calc(var(--nav-h) + var(--safe-bottom) + 20px);
-  width:52px;height:52px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));
-  border-radius:50%;border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--white);
-  box-shadow:var(--shadow-brand);z-index:50;transition:transform .2s;
-}
-.quick-add:active{transform:scale(.93)}
-
-/* EMPTY STATE */
-.empty{text-align:center;padding:40px 20px}
-.empty-icon{font-size:48px;margin-bottom:12px}
-.empty-text{font-size:15px;color:var(--g4)}
-
-/* UTILITY */
-.card{background:var(--white);border-radius:var(--r-xl);padding:20px;box-shadow:var(--shadow-sm);border:1px solid var(--g1);margin-bottom:16px}
-.divider{height:1px;background:var(--g1);margin:0}
+.pt{padding:5px 11px;border:none;background:transparent;border-radius:7px;font-size:12px;font-weight:500;color:var(--g5);cursor:pointer;font-family:var(--fm)}
+.pt.active{background:#fff;color:var(--g9);box-shadow:var(--sh)}
+.bars{display:flex;align-items:flex-end;gap:5px;height:130px;padding:0 4px}
+.bcol{display:flex;flex-direction:column;align-items:center;flex:1}
+.bpair{display:flex;align-items:flex-end;gap:2px;height:110px}
+.bar{border-radius:5px 5px 0 0;min-height:4px;transition:height .6s cubic-bezier(.34,1.56,.64,1);cursor:pointer}
+.bar.inc{background:linear-gradient(180deg,#34d399,#10b981);width:13px}
+.bar.exp{background:linear-gradient(180deg,#f87171,#ef4444);width:13px}
+.bday{font-size:9px;color:var(--g4);margin-top:5px;text-align:center}
+.bday-ur{font-family:var(--fu);font-size:9px;display:block}
+.chart-leg{display:flex;justify-content:center;gap:16px;margin-top:8px}
+.leg{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--g6)}
+.leg-dot{width:10px;height:10px;border-radius:3px}
+.sum-chips{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.sc{background:#fff;border-radius:var(--r-lg);padding:12px;text-align:center;box-shadow:var(--sh);border:1px solid var(--g1)}
+.sc-lbl{font-size:9px;color:var(--g4);font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.sc-val{font-size:14px;font-weight:700;letter-spacing:-.3px}
+/* CREDIT */
+.score-hero{background:linear-gradient(135deg,var(--brand-darker),var(--brand));border-radius:var(--r-xl);padding:26px 20px;text-align:center;margin-bottom:16px;color:#fff;position:relative;overflow:hidden}
+.score-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;background:rgba(255,255,255,.07);border-radius:50%}
+.sh-lbl{font-size:12px;opacity:.8;font-weight:500;margin-bottom:3px}
+.sh-num{font-size:60px;font-weight:800;line-height:1;letter-spacing:-2px;margin-bottom:4px}
+.sh-status{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.2);border-radius:var(--r-full);padding:4px 12px;font-size:12px;font-weight:600}
+.sh-ur{font-family:var(--fu);font-size:14px;opacity:.7;margin-top:8px}
+.factors-card{background:#fff;border-radius:var(--r-xl);padding:18px;box-shadow:var(--sh);border:1px solid var(--g1);margin-bottom:16px}
+.ft{font-size:14px;font-weight:700;color:var(--g9);margin-bottom:14px}
+.frow{margin-bottom:12px}
+.frow:last-child{margin-bottom:0}
+.ftop{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.fn{font-size:12px;font-weight:600;color:var(--g7)}
+.fn-ur{font-family:var(--fu);font-size:11px;color:var(--g4);margin-right:4px}
+.fp{font-size:12px;font-weight:700;color:var(--g9)}
+.ftrack{height:7px;background:var(--g1);border-radius:var(--r-full);overflow:hidden}
+.ffill{height:100%;border-radius:var(--r-full);transition:width .9s cubic-bezier(.34,1.56,.64,1)}
+.card{background:#fff;border-radius:var(--r-xl);padding:18px;box-shadow:var(--sh);border:1px solid var(--g1);margin-bottom:16px}
+.toast{position:fixed;top:calc(var(--safe-top) + 70px);left:50%;transform:translateX(-50%);background:var(--g9);color:#fff;padding:10px 20px;border-radius:var(--r-full);font-size:13px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+.install-banner{background:var(--brand-pale);border:1px solid var(--brand-light);border-radius:var(--r-lg);padding:12px 16px;margin:0 16px 16px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.ib-icon{font-size:22px}
+.ib-text{flex:1}
+.ib-title{font-size:13px;font-weight:600;color:var(--brand-darker)}
+.ib-sub{font-family:var(--fu);font-size:12px;color:var(--brand-dark)}
+.ib-close{font-size:18px;color:var(--g4);background:none;border:none;cursor:pointer}
 </style>
 </head>
 <body>
@@ -338,195 +185,281 @@ body{font-family:var(--fm);background:var(--g0);color:var(--g8);height:100%;over
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.9/babel.min.js"></script>
 <script type="text/babel">
 const {useState,useCallback,useRef,useEffect}=React;
-const TX=[
-  {id:1,date:'Mar 24',desc:'Cloth sale to Ahmed',ur:'احمد کو کپڑا',amount:15000,type:'in',icon:'👔'},
-  {id:2,date:'Mar 24',desc:'Electricity bill',ur:'بجلی بل',amount:3200,type:'out',icon:'⚡'},
-  {id:3,date:'Mar 23',desc:'Wholesale fabric',ur:'تھوک کپڑا',amount:25000,type:'out',icon:'🛒'},
-  {id:4,date:'Mar 23',desc:'Cash sale walk-in',ur:'نقد فروخت',amount:8500,type:'in',icon:'💰'},
-  {id:5,date:'Mar 22',desc:'Stitching order - Bilal',ur:'سلائی آرڈر',amount:12000,type:'in',icon:'✂️'},
-  {id:6,date:'Mar 22',desc:'Shop rent',ur:'دکان کرایہ',amount:18000,type:'out',icon:'🏠'},
+
+/* ── FREE URDU PARSER ── no API needed ── */
+const UR_ONES={'ایک':1,'ایک':1,'دو':2,'تین':3,'چار':4,'پانچ':5,'پنج':5,'چھ':6,'چھہ':6,'سات':7,'ساتھ':7,'آٹھ':8,'آٹھ':8,'نو':9,'دس':10,'گیارہ':11,'بارہ':12,'تیرہ':13,'چودہ':14,'پندرہ':15,'سولہ':16,'سترہ':17,'اٹھارہ':18,'انیس':19,'بیس':20,'تیس':30,'چالیس':40,'پچاس':50,'ساٹھ':60,'ستر':70,'اسی':80,'نوّے':90};
+const UR_SCALE={'ہزار':1000,'ہزار':1000,'لاکھ':100000,'کروڑ':10000000,'سو':100,'دو سو':200,'تین سو':300};
+const UR_TYPE_IN=['آئے','ملے','ملی','وصول','فروخت','بیچا','نقد','آمدن','دیئے','آیے'];
+const UR_TYPE_OUT=['دیئے','دیا','دیے','خرچہ','خریدا','خرید','کرایہ','بل','ادا','ادایی','دیی'];
+
+function parseUrduAmount(text){
+  let amount=0;
+  // try digit strings first (handles "15000" or "15,000")
+  const digits=text.match(/[d,]+/g);
+  if(digits){
+    const n=parseInt(digits[0].replace(/,/g,''));
+    if(!isNaN(n)) amount=n;
+  }
+  if(!amount){
+    // word-based parsing
+    for(const[word,val] of Object.entries(UR_SCALE)){
+      if(text.includes(word)){
+        // find preceding number word
+        for(const[w,n] of Object.entries(UR_ONES)){
+          if(text.includes(w)){amount=n*val;break}
+        }
+        if(!amount) amount=val;
+        break;
+      }
+    }
+  }
+  return amount||0;
+}
+function parseUrduType(text){
+  if(UR_TYPE_OUT.some(w=>text.includes(w))) return 'out';
+  if(UR_TYPE_IN.some(w=>text.includes(w))) return 'in';
+  return 'in'; // default income
+}
+function parseUrduParty(text){
+  // look for proper-noun-like words (capitalised or before key verbs)
+  const common=['ہزار','لاکھ','سو','کا','کے','کی','کو','سے','نے','میں','ہی','ہے','اور','ایک','دو','تین','آئے','ملے','دیئے','بل','فروخت','خرید','نقد'];
+  const words=text.split(/s+/);
+  const party=words.find(w=>w.length>2&&!common.includes(w)&&!/^[d,]+$/.test(w));
+  return party||'عام';
+}
+function parseUrdu(text){
+  const amount=parseUrduAmount(text);
+  const type=parseUrduType(text);
+  const party=parseUrduParty(text);
+  return{ur:text,party,amount,type,desc:(type==='in'?'Payment from ':'Payment to ')+party+' — Rs '+amount.toLocaleString()};
+}
+
+/* ── LOCALSTORAGE ── */
+const LS_KEY='hisaabai_v1';
+function loadTx(){try{return JSON.parse(localStorage.getItem(LS_KEY))||[];}catch{return[];}}
+function saveTx(list){try{localStorage.setItem(LS_KEY,JSON.stringify(list));}catch{}}
+const SEED_TX=[
+  {id:1001,date:'Mar 24',desc:'Cloth sale to Ahmed',ur:'احمد کو کپڑا',amount:15000,type:'in',icon:'👔'},
+  {id:1002,date:'Mar 24',desc:'Electricity bill',ur:'بجلی بل',amount:3200,type:'out',icon:'⚡'},
+  {id:1003,date:'Mar 23',desc:'Wholesale fabric',ur:'تھوک کپڑا',amount:25000,type:'out',icon:'🛒'},
+  {id:1004,date:'Mar 23',desc:'Cash sale',ur:'نقد فروخت',amount:8500,type:'in',icon:'💰'},
+  {id:1005,date:'Mar 22',desc:'Stitching order',ur:'سلائی آرڈر',amount:12000,type:'in',icon:'✂️'},
 ];
-const MOCK_VOICE=[
-  {ur:'احمد سے پندرہ ہزار آئے',party:'Ahmed',amount:15000,type:'in',desc:'Payment received from Ahmed'},
-  {ur:'بجلی کا بل تین ہزار دو سو',party:'Utility',amount:3200,type:'out',desc:'Electricity bill paid'},
-  {ur:'کریم کو ساڑھی سات ہزار میں کپڑا بیچا',party:'Kareem',amount:7500,type:'in',desc:'Cloth sale to Kareem'},
-  {ur:'دکان کا کرایہ اٹھارہ ہزار',party:'Landlord',amount:18000,type:'out',desc:'Monthly shop rent'},
-];
+
+/* ── WEEKLY MOCK (would come from real tx) ── */
 const WEEKLY=[
-  {day:'Mon',ur:'پیر',inc:12000,exp:4500},
-  {day:'Tue',ur:'منگل',inc:8500,exp:3200},
-  {day:'Wed',ur:'بدھ',inc:15000,exp:25000},
-  {day:'Thu',ur:'جمعرات',inc:22000,exp:1500},
-  {day:'Fri',ur:'جمعہ',inc:35000,exp:18000},
-  {day:'Sat',ur:'هفتہ',inc:18000,exp:5200},
+  {day:'Mon',ur:'پیر',inc:12000,exp:4500},{day:'Tue',ur:'منگل',inc:8500,exp:3200},
+  {day:'Wed',ur:'بدھ',inc:15000,exp:25000},{day:'Thu',ur:'جمعرات',inc:22000,exp:1500},
+  {day:'Fri',ur:'جمعہ',inc:35000,exp:18000},{day:'Sat',ur:'ہفتہ',inc:18000,exp:5200},
   {day:'Sun',ur:'اتوار',inc:5000,exp:2000}
 ];
-const EXAMPLES=[
-  {ur:'احمد سے پندرہ ہزار آئے',en:'Rs 15,000 from Ahmed'},
-  {ur:'بجلی کا بل تین ہزار',en:'Electricity bill Rs 3,000'},
-  {ur:'دکان کا کرایہ اٹھارہ ہزار',en:'Shop rent Rs 18,000'},
-];
-function Header(){
+
+/* ── TOAST ── */
+function useToast(){
+  const[msg,setMsg]=useState('');
+  const show=useCallback((m)=>{setMsg(m);setTimeout(()=>setMsg(''),2500);},[]);
+  return[msg,show];
+}
+
+/* ── HEADER ── */
+function Header({onInstall,canInstall}){
   return(
     <header className="header">
       <div className="header-brand">
         <div className="header-logo">حا</div>
-        <div className="header-name">
-          <span className="en">HisaabAI</span>
-          <span className="ur">حساب AI</span>
-        </div>
+        <div className="header-name"><span className="en">HisaabAI</span><span className="ur">حساب AI</span></div>
       </div>
       <div className="header-right">
-        <button className="notif-btn"><span>🔔</span><span className="notif-dot"></span></button>
-        <button className="avatar-btn">👤</button>
+        <button className="icon-btn">🔔<span className="notif-dot"/></button>
+        {canInstall&&<button className="icon-btn" onClick={onInstall} title="Install App">⬇️</button>}
       </div>
     </header>
   );
 }
 
-function Dashboard({txList}){
-  const allTx=[...txList,...TX];
-  const totIn=allTx.filter(t=>t.type==='in').reduce((s,t)=>s+t.amount,0);
-  const totOut=allTx.filter(t=>t.type==='out').reduce((s,t)=>s+t.amount,0);
+/* ── DASHBOARD ── */
+function Dashboard({txList,showInstall,onInstall,onDismissInstall}){
+  const totIn=txList.filter(t=>t.type==='in').reduce((s,t)=>s+t.amount,0);
+  const totOut=txList.filter(t=>t.type==='out').reduce((s,t)=>s+t.amount,0);
+  const net=totIn-totOut;
   return(
-    <div className="page">
-      <div className="greeting-card">
-        <div className="greeting-text">Good morning ☀️</div>
-        <div className="greeting-name">Shery's Shop</div>
-        <div className="greeting-balance">Net Balance</div>
-        <div className="greeting-amount">Rs {(totIn-totOut).toLocaleString()}</div>
-        <div className="greeting-ur">خالص بقایہ</div>
-      </div>
-      <div className="stats-row">
-        <div className="stat-card">
-          <div className="stat-icon-row">
-            <div className="stat-icon green">📈</div>
-            <span className="stat-badge up">↑ 12%</span>
+    <div>
+      {showInstall&&(
+        <div className="install-banner" onClick={onInstall}>
+          <span className="ib-icon">📲</span>
+          <div className="ib-text">
+            <div className="ib-title">Install App on Your Phone</div>
+            <div className="ib-sub">اپنے فون پر انسٹال کریں</div>
           </div>
-          <div className="stat-label"><span className="ur">آمدن</span>Earnings</div>
-          <div className="stat-value green">Rs {totIn.toLocaleString()}</div>
+          <button className="ib-close" onClick={e=>{e.stopPropagation();onDismissInstall();}}>✕</button>
         </div>
-        <div className="stat-card">
-          <div className="stat-icon-row">
-            <div className="stat-icon red">📉</div>
-            <span className="stat-badge down">↓ 5%</span>
-          </div>
-          <div className="stat-label"><span className="ur">اخراجات</span>Expenses</div>
-          <div className="stat-value red">Rs {totOut.toLocaleString()}</div>
+      )}
+      <div className="page">
+        <div className="greeting-card">
+          <div className="g-sub">Good morning ☀️</div>
+          <div className="g-name">Shery's Shop</div>
+          <div className="g-bal-label">Net Balance</div>
+          <div className="g-amount" style={{color:net>=0?'#a7f3d0':'#fca5a5'}}>Rs {net.toLocaleString()}</div>
+          <div className="g-ur">خالص بقایہ</div>
         </div>
-        <div className="stat-card">
-          <div className="stat-icon-row">
-            <div className="stat-icon blue">💰</div>
-            <span className="stat-badge up">↑ 18%</span>
-          </div>
-          <div className="stat-label"><span className="ur">منافع</span>Profit</div>
-          <div className="stat-value blue">Rs {(totIn-totOut).toLocaleString()}</div>
+        <div className="stats-row">
+          <div className="stat-card"><div className="stat-icon-row"><div className="stat-icon si-g">📈</div><span className="stat-badge sb-up">↑ 12%</span></div><div className="stat-label"><span className="ur">آمدن</span>EARNINGS</div><div className={"stat-value sv-g"}>Rs {totIn.toLocaleString()}</div></div>
+          <div className="stat-card"><div className="stat-icon-row"><div className="stat-icon si-r">📉</div><span className="stat-badge sb-dn">↓ 5%</span></div><div className="stat-label"><span className="ur">اخراج</span>EXPENSES</div><div className={"stat-value sv-r"}>Rs {totOut.toLocaleString()}</div></div>
+          <div className="stat-card"><div className="stat-icon-row"><div className="stat-icon si-b">💰</div><span className="stat-badge sb-up">↑ 18%</span></div><div className="stat-label"><span className="ur">منافع</span>PROFIT</div><div className={"stat-value sv-b"}>Rs {net.toLocaleString()}</div></div>
+          <div className="stat-card"><div className="stat-icon-row"><div className="stat-icon si-a">⭐</div><span className="stat-badge sb-ok">Good</span></div><div className="stat-label"><span className="ur">سکور</span>CREDIT</div><div className={"stat-value sv-a"}>742</div></div>
         </div>
-        <div className="stat-card">
-          <div className="stat-icon-row">
-            <div className="stat-icon amber">⭐</div>
-            <span className="stat-badge up">Good</span>
-          </div>
-          <div className="stat-label"><span className="ur">سکور</span>Credit</div>
-          <div className="stat-value amber">742</div>
-        </div>
-      </div>
-      <div className="section-header">
-        <div className="section-title"><span className="ur">حالیہ</span>Recent</div>
-        <button className="see-all">See all</button>
-      </div>
-      <div className="tx-card">
-        {allTx.slice(0,6).map(tx=>(
-          <div className="tx-item" key={tx.id}>
-            <div className={"tx-avatar "+tx.type}>{tx.icon||'💳'}</div>
-            <div className="tx-info">
-              <span className="tx-name">{tx.desc}</span>
-              <span className="tx-name-ur">{tx.ur}</span>
-              <div className="tx-date">{tx.date}</div>
+        <div className="sec-hd"><div className="sec-title"><span className="ur">حالیہ</span>Recent</div><button className="see-all">See all</button></div>
+        <div className="tx-list">
+          {txList.length===0&&<div className="empty"><div className="empty-icon">📋</div><div className="empty-text">No transactions yet — use Voice to add one!</div></div>}
+          {txList.slice(0,8).map(tx=>(
+            <div className="tx-item" key={tx.id}>
+              <div className={"tx-av "+tx.type}>{tx.icon||'💳'}</div>
+              <div className="tx-info">
+                <span className="tx-name">{tx.desc}</span>
+                <span className="tx-ur">{tx.ur}</span>
+                <span className="tx-date">{tx.date||'Today'}</span>
+              </div>
+              <div className="tx-right">
+                <div className={"tx-amt "+tx.type}>{tx.type==='in'?'+':'-'} Rs {tx.amount.toLocaleString()}</div>
+                <div className="tx-type-badge">{tx.type==='in'?'آمد Income':'خرچ Expense'}</div>
+              </div>
             </div>
-            <div>
-              <div className={"tx-amount "+tx.type}>{tx.type==='in'?'+':'-'} Rs {tx.amount.toLocaleString()}</div>
-              <div className="tx-amount-label">{tx.type==='in'?'آمدن Income':'خرچ Expense'}</div>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
 }
-function VoicePage({onAdd}){
-  const[state,setState]=useState('idle'); // idle|listening|done
-  const[result,setResult]=useState(null);
-  const timerRef=useRef(null);
 
-  const handleMic=useCallback(()=>{
-    if(state==='idle'){
+/* ── REAL VOICE COMPONENT ── */
+function VoicePage({onAdd,showToast}){
+  const[state,setState]=useState('idle'); // idle|listening|processing|done|error
+  const[result,setResult]=useState(null);
+  const[transcript,setTranscript]=useState('');
+  const[errMsg,setErrMsg]=useState('');
+  const srRef=useRef(null);
+
+  const startListening=useCallback(()=>{
+    // Try real Web Speech API
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SR){
+      // fallback to mock if no browser support
       setState('listening');
-      timerRef.current=setTimeout(()=>{
-        const m=MOCK_VOICE[Math.floor(Math.random()*MOCK_VOICE.length)];
-        setResult(m); setState('done');
-      },2200);
-    } else if(state==='listening'){
-      clearTimeout(timerRef.current);
-      const m=MOCK_VOICE[Math.floor(Math.random()*MOCK_VOICE.length)];
-      setResult(m); setState('done');
-    } else {
-      setResult(null); setState('idle');
+      setTimeout(()=>{
+        const mocks=[
+          'احمد سے پندرہ ہزار آئے',
+          'بجلی کا بل تین ہزار دو سو دیئے',
+          'کریم کو آٹھ ہزار میں کپڑا فروخت',
+        ];
+        const t=mocks[Math.floor(Math.random()*mocks.length)];
+        setTranscript(t);
+        setState('processing');
+        setTimeout(()=>{setResult(parseUrdu(t));setState('done');},600);
+      },2000);
+      return;
     }
+    const sr=new SR();
+    srRef.current=sr;
+    sr.lang='ur-PK';
+    sr.continuous=false;
+    sr.interimResults=true;
+    sr.maxAlternatives=1;
+    sr.onstart=()=>setState('listening');
+    sr.onresult=(e)=>{
+      const t=Array.from(e.results).map(r=>r[0].transcript).join('');
+      setTranscript(t);
+      if(e.results[e.results.length-1].isFinal){
+        setState('processing');
+        setTimeout(()=>{setResult(parseUrdu(t));setState('done');},500);
+      }
+    };
+    sr.onerror=(e)=>{
+      if(e.error==='not-allowed'){setErrMsg('مائیک کی اجازت دیں — Please allow microphone');setState('error');}
+      else if(e.error==='no-speech'){setState('idle');}
+      else{setState('idle');}
+    };
+    sr.onend=()=>{if(state==='listening') setState('idle');};
+    try{sr.start();}catch(err){setState('idle');}
   },[state]);
 
+  const stopListening=useCallback(()=>{
+    srRef.current?.stop();
+    setState('idle');
+  },[]);
+
+  const handleMic=useCallback(()=>{
+    if(state==='idle'||state==='error'){setResult(null);setTranscript('');setErrMsg('');startListening();}
+    else if(state==='listening'){stopListening();}
+    else if(state==='done'){setResult(null);setTranscript('');setState('idle');}
+  },[state,startListening,stopListening]);
+
   const handleSave=()=>{
-    if(result){ onAdd({id:Date.now(),...result,date:'Today',icon:result.type==='in'?'💰':'💸'}); setResult(null); setState('idle'); }
+    if(result){
+      onAdd({id:Date.now(),...result,date:'Today',icon:result.type==='in'?'💰':'💸'});
+      showToast('✓ Entry saved! محفوظ ہو گیا');
+      setResult(null);setTranscript('');setState('idle');
+    }
   };
 
-  const statusText=state==='idle'?'بولنے کے لیے دبائیں':state==='listening'?'سن رہے ہیں...':'';
-  const statusEn=state==='idle'?'Tap to record your transaction':state==='listening'?'Listening... speak now':'';
+  const statusText={
+    idle:'بولنے کے لیے دبائیں',
+    listening:'سن رہے ہیں...',
+    processing:'سمجھ رہے ہیں...',
+    done:'سمجھ گیا ✔️',
+    error:errMsg||'غلطی ہوئی'
+  }[state];
+  const statusEn={
+    idle:'Tap microphone to record',
+    listening:'Listening — speak in Urdu',
+    processing:'AI is understanding...',
+    done:'Understood! Review below',
+    error:'Error — try again'
+  }[state];
+
+  const EXAMPLES=[
+    {ur:'احمد سے پندرہ ہزار آئے',en:'Rs 15k from Ahmed'},
+    {ur:'بجلی کا بل تین ہزار',en:'Electricity Rs 3k'},
+    {ur:'کریم کو سات ہزار میں کپڑا فروخت',en:'Cloth Rs 7k to Kareem'},
+    {ur:'دکان کا کرایہ اٹھارہ ہزار دیئے',en:'Shop rent Rs 18k'},
+  ];
 
   return(
     <div className="voice-page">
-      <div className="voice-hero">
-        <div className="voice-title">Voice Entry</div>
-        <div className="voice-subtitle">آواز سے انٹری</div>
-        <div className="voice-desc">Speak in Urdu — AI will understand and record your transaction automatically</div>
-        
-        <div className="mic-container">
-          {state==='idle'&&<><div className="mic-ring-outer"/><div className="mic-ring-mid"/><div className="mic-ring-inner"/></>}
-          <button className={"mic-btn"+(state==='listening'?' recording':'')} onClick={handleMic}>
-            {state==='listening'?'⏹':'🎙️'}
-          </button>
-        </div>
-
-        <div className={"mic-status"+(state==='listening'?' listening':'')}>{statusText}</div>
-        <div className="voice-desc" style={{marginBottom:'12px'}}>{statusEn}</div>
-
-        <div className={"mic-wave"+(state==='listening'?' active':'')}>
-          {[1,2,3,4,5,6,7].map(i=><div key={i} className="wave-bar"/>)}
-        </div>
+      <div className="v-title">Voice Entry</div>
+      <div className="v-subtitle">آواز سے انٹری</div>
+      <div className="v-desc">Speak in Urdu — AI understands and records your transaction automatically. 100% free.</div>
+      <div className="mic-wrap">
+        {state==='idle'&&<><div className="ring ring1"/><div className="ring ring2"/><div className="ring ring3"/></>}
+        <button className={"mic-btn"+(state==='listening'?' rec':'')} onClick={handleMic}>
+          {state==='listening'?'⏹️':state==='processing'?'⌛':'🎙️'}
+        </button>
       </div>
-
+      <div className={"mic-status"+(state==='listening'?' listening':'')}>{statusText}</div>
+      <div className="mic-hint">{statusEn}</div>
+      {transcript!==''&&state!=='done'&&<div style={{fontFamily:'var(--fu)',fontSize:'16px',color:'var(--g6)',marginBottom:'12px',textAlign:'right',direction:'rtl',padding:'8px 14px',background:'var(--g0)',borderRadius:'var(--r-md)',width:'100%'}}>{transcript}</div>}
+      <div className={"wave-row"+(state==='listening'?' on':'')}>{[1,2,3,4,5,6,7].map(i=><div key={i} className="wbar"/>)}</div>
       {result&&(
-        <div style={{width:'100%',paddingBottom:'8px'}}>
-          <div className="voice-result-card">
-            <div className="voice-result-ur">{result.ur}</div>
+        <div style={{width:'100%'}}>
+          <div className="result-card">
+            <div className="result-ur">{result.ur}</div>
             <div className="parsed-grid">
-              <div className="parsed-item"><div className="parsed-key">Party</div><div className="parsed-val">{result.party}</div></div>
-              <div className="parsed-item"><div className="parsed-key">Amount</div><div className={"parsed-val "+(result.type==='in'?'income':'expense')}>Rs {result.amount.toLocaleString()}</div></div>
-              <div className="parsed-item"><div className="parsed-key">Type</div><div className={"parsed-val "+(result.type==='in'?'income':'expense')}>{result.type==='in'?'آمدن Income':'خرچ Expense'}</div></div>
-              <div className="parsed-item"><div className="parsed-key">Description</div><div className="parsed-val" style={{fontSize:'12px'}}>{result.desc}</div></div>
+              <div className="p-item"><div className="p-key">Party</div><div className="p-val">{result.party}</div></div>
+              <div className="p-item"><div className="p-key">Amount</div><div className={"p-val "+(result.type==='in'?'in':'out')}>Rs {result.amount.toLocaleString()}</div></div>
+              <div className="p-item"><div className="p-key">Type</div><div className={"p-val "+(result.type==='in'?'in':'out')}>{result.type==='in'?'آمدن Income':'خرچ Expense'}</div></div>
+              <div className="p-item"><div className="p-key">Description</div><div className="p-val" style={{fontSize:'11px',lineHeight:1.4}}>{result.desc}</div></div>
             </div>
-            <button className="btn btn-primary" onClick={handleSave}>✓ Save Entry محفوظ</button>
-            <button className="btn btn-outline" onClick={()=>{setResult(null);setState('idle');}}>Try Again واپس</button>
+            <button className="btn btn-primary" onClick={handleSave}>✓ Save — محفوظ کریں</button>
+            <button className="btn btn-outline" onClick={()=>{setResult(null);setTranscript('');setState('idle');}}>Try Again — واپس</button>
           </div>
         </div>
       )}
-
       {state==='idle'&&!result&&(
-        <div className="voice-examples">
-          <div className="examples-title">TRY SAYING — یہ بولیں</div>
+        <div className="examples">
+          <div className="ex-title">TRY SAYING — یہ بولیں</div>
           {EXAMPLES.map((e,i)=>(
-            <div key={i} className="example-chip" onClick={handleMic}>
-              <span style={{fontSize:'16px'}}>🗣️</span>
-              <span className="chip-ur">{e.ur}</span>
+            <div key={i} className="ex-chip" onClick={handleMic}>
+              <span style={{fontSize:'15px'}}>🗣️</span>
+              <span className="ex-ur">{e.ur}</span>
             </div>
           ))}
         </div>
@@ -534,65 +467,52 @@ function VoicePage({onAdd}){
     </div>
   );
 }
-function Reports(){
+
+/* ── REPORTS ── */
+function Reports({txList}){
   const maxV=Math.max(...WEEKLY.flatMap(d=>[d.inc,d.exp]));
   const totInc=WEEKLY.reduce((s,d)=>s+d.inc,0);
   const totExp=WEEKLY.reduce((s,d)=>s+d.exp,0);
   return(
     <div className="page">
       <div className="card">
-        <div className="chart-header">
-          <div className="section-title"><span className="ur">رپورٹ</span>Weekly</div>
+        <div className="chart-hd">
+          <div className="sec-title"><span className="ur">رپورٹ</span>Weekly</div>
           <div className="period-tabs">
-            <button className="period-tab active">Week</button>
-            <button className="period-tab">Month</button>
-            <button className="period-tab">Year</button>
+            <button className="pt active">Week</button>
+            <button className="pt">Month</button>
+            <button className="pt">Year</button>
           </div>
         </div>
-        <div className="chart-wrap">
-          <div className="chart-bars">
-            {WEEKLY.map((d,i)=>(
-              <div key={i} className="chart-col">
-                <div className="chart-pair">
-                  <div className="bar inc" style={{width:'14px',height:Math.max(4,d.inc/maxV*120)+'px'}}/>
-                  <div className="bar exp" style={{width:'14px',height:Math.max(4,d.exp/maxV*120)+'px'}}/>
-                </div>
-                <div className="bar-day">{d.day}<span className="bar-day-ur">{d.ur}</span></div>
+        <div className="bars">
+          {WEEKLY.map((d,i)=>(
+            <div key={i} className="bcol">
+              <div className="bpair">
+                <div className="bar inc" style={{height:Math.max(4,d.inc/maxV*110)+'px'}}/>
+                <div className="bar exp" style={{height:Math.max(4,d.exp/maxV*110)+'px'}}/>
               </div>
-            ))}
-          </div>
-          <div className="chart-legend">
-            <div className="legend"><div className="legend-dot" style={{background:'#10b981'}}/>آمدن Income</div>
-            <div className="legend"><div className="legend-dot" style={{background:'#ef4444'}}/>اخراجات Expense</div>
-          </div>
+              <div className="bday">{d.day}<span className="bday-ur">{d.ur}</span></div>
+            </div>
+          ))}
+        </div>
+        <div className="chart-leg">
+          <div className="leg"><div className="leg-dot" style={{background:'#10b981'}}/>آمدن</div>
+          <div className="leg"><div className="leg-dot" style={{background:'#ef4444'}}/>اخراج</div>
         </div>
       </div>
-      <div className="summary-chips">
-        <div className="summary-chip">
-          <div className="chip-label">آمدن</div>
-          <div className="chip-val" style={{color:'#059669'}}>Rs {(totInc/1000).toFixed(0)}K</div>
-        </div>
-        <div className="summary-chip">
-          <div className="chip-label">اخراج</div>
-          <div className="chip-val" style={{color:'#ef4444'}}>Rs {(totExp/1000).toFixed(0)}K</div>
-        </div>
-        <div className="summary-chip">
-          <div className="chip-label">منافع</div>
-          <div className="chip-val" style={{color:'#3b82f6'}}>Rs {((totInc-totExp)/1000).toFixed(0)}K</div>
-        </div>
+      <div className="sum-chips">
+        <div className="sc"><div className="sc-lbl">آمدن</div><div className="sc-val" style={{color:'#059669'}}>Rs {(totInc/1000).toFixed(0)}K</div></div>
+        <div className="sc"><div className="sc-lbl">اخراج</div><div className="sc-val" style={{color:'#ef4444'}}>Rs {(totExp/1000).toFixed(0)}K</div></div>
+        <div className="sc"><div className="sc-lbl">منافع</div><div className="sc-val" style={{color:'#3b82f6'}}>Rs {((totInc-totExp)/1000).toFixed(0)}K</div></div>
       </div>
       <div className="card">
-        <div className="section-title" style={{marginBottom:'14px'}}><span className="ur">لین دین</span>All Transactions</div>
-        {TX.map(tx=>(
-          <div key={tx.id}>
-            <div className="tx-item" style={{padding:'12px 0',borderBottom:'1px solid var(--g1)'}}>
-              <div className={"tx-avatar "+tx.type}>{tx.icon}</div>
-              <div className="tx-info">
-                <span className="tx-name">{tx.desc}</span>
-                <span className="tx-name-ur">{tx.ur}</span>
-              </div>
-              <div className={"tx-amount "+tx.type}>{tx.type==='in'?'+':'-'} Rs {tx.amount.toLocaleString()}</div>
-            </div>
+        <div className="sec-title" style={{marginBottom:'14px'}}><span className="ur">تمام</span>All Transactions ({txList.length})</div>
+        {txList.length===0&&<div className="empty"><div className="empty-icon">📊</div><div className="empty-text">No data yet — add via Voice!</div></div>}
+        {txList.map(tx=>(
+          <div className="tx-item" key={tx.id} style={{paddingLeft:0,paddingRight:0}}>
+            <div className={"tx-av "+tx.type}>{tx.icon||'💳'}</div>
+            <div className="tx-info"><span className="tx-name">{tx.desc}</span><span className="tx-date">{tx.date||'Today'}</span></div>
+            <div className={"tx-amt "+tx.type}>{tx.type==='in'?'+':'-'} Rs {tx.amount.toLocaleString()}</div>
           </div>
         ))}
       </div>
@@ -600,6 +520,7 @@ function Reports(){
   );
 }
 
+/* ── CREDIT SCORE ── */
 function CreditScore(){
   const score=742,max=900,pct=score/max;
   const factors=[
@@ -608,49 +529,48 @@ function CreditScore(){
     {name:'Business Age',ur:'کاروبار عمر',pct:65,color:'#f59e0b'},
     {name:'Transactions',ur:'لین دین',pct:85,color:'#8b5cf6'},
   ];
-  const r=70,cx=100,cy=80,circ=2*Math.PI*r;
   return(
     <div className="page">
       <div className="score-hero">
-        <div className="score-label">Your Credit Score</div>
-        <div className="score-number">{score}</div>
-        <div className="score-status">✅ Good • اچھا</div>
-        <div className="score-ur">کریڈٹ سکور — اچھی حالت</div>
-        <svg className="gauge-svg-wrap" width="200" height="100" viewBox="0 0 200 100">
+        <div className="sh-lbl">Your Credit Score — آپ کا کریڈٹ سکور</div>
+        <div className="sh-num">{score}</div>
+        <div className="sh-status">✅ Good • اچھا</div>
+        <svg width="200" height="100" viewBox="0 0 200 100" style={{display:'block',margin:'12px auto 4px'}}>
           <path d="M20,90 A80,80 0 0,1 180,90" fill="none" stroke="rgba(255,255,255,.2)" strokeWidth="14" strokeLinecap="round"/>
           <path d="M20,90 A80,80 0 0,1 180,90" fill="none" stroke="rgba(255,255,255,.9)" strokeWidth="14" strokeLinecap="round"
-            strokeDasharray="251" strokeDashoffset={251*(1-pct)} style={{transition:'stroke-dashoffset 1s ease'}}/>
+            strokeDasharray="251" strokeDashoffset={251*(1-pct)}/>
         </svg>
-        <div style={{fontSize:'12px',opacity:.7}}>out of {max} points</div>
+        <div style={{fontSize:'11px',opacity:.65}}>out of {max} • Better than 78% of traders</div>
+        <div className="sh-ur">کریڈٹ سکور — اچھی حالت</div>
       </div>
       <div className="factors-card">
-        <div className="factors-title">📊 Score Factors — سکور عوامل</div>
+        <div className="ft">📊 Score Factors — سکور عوامل</div>
         {factors.map(f=>(
-          <div className="factor-row" key={f.name}>
-            <div className="factor-top">
-              <div><span className="factor-name">{f.name}</span><span className="factor-name-ur"> {f.ur}</span></div>
-              <span className="factor-pct">{f.pct}%</span>
+          <div className="frow" key={f.name}>
+            <div className="ftop">
+              <div><span className="fn">{f.name}</span><span className="fn-ur">{f.ur}</span></div>
+              <span className="fp">{f.pct}%</span>
             </div>
-            <div className="factor-track">
-              <div className="factor-fill" style={{width:f.pct+'%',background:f.color}}/>
-            </div>
+            <div className="ftrack"><div className="ffill" style={{width:f.pct+'%',background:f.color}}/></div>
           </div>
         ))}
       </div>
-      <div className="card" style={{textAlign:'center',marginTop:'0'}}>
-        <div style={{fontSize:'28px',marginBottom:'8px'}}>💼</div>
-        <div style={{fontSize:'15px',fontWeight:'600',color:'var(--g8)',marginBottom:'4px'}}>Loan Eligibility</div>
-        <div style={{fontFamily:'var(--fu)',fontSize:'14px',color:'var(--g5)',marginBottom:'12px'}}>قرض کی اہلیت</div>
-        <div style={{fontSize:'28px',fontWeight:'800',color:'#10b981',letterSpacing:'-1px'}}>Rs 2,50,000</div>
-        <div style={{fontSize:'12px',color:'var(--g4)',marginTop:'4px'}}>Pre-approved amount</div>
+      <div className="card" style={{textAlign:'center'}}>
+        <div style={{fontSize:'26px',marginBottom:'8px'}}>🏦</div>
+        <div style={{fontSize:'15px',fontWeight:'700',color:'var(--g9)',marginBottom:'3px'}}>Loan Eligibility</div>
+        <div style={{fontFamily:'var(--fu)',fontSize:'13px',color:'var(--g5)',marginBottom:'10px'}}>قرض کی اہلیت</div>
+        <div style={{fontSize:'26px',fontWeight:'800',color:'#10b981',letterSpacing:'-1px'}}>Rs 2,50,000</div>
+        <div style={{fontSize:'11px',color:'var(--g4)',marginTop:'4px'}}>Pre-approved • پہلے سے منظور</div>
       </div>
     </div>
   );
 }
+
+/* ── BOTTOM NAV ── */
 function BottomNav({tab,setTab}){
   const tabs=[
     {k:'dashboard',icon:'🏠',label:'Home',ur:'گھر'},
-    {k:'voice',icon:null,label:'Voice',ur:'آواز',isMic:true},
+    {k:'voice',isMic:true,label:'Voice',ur:'آواز'},
     {k:'reports',icon:'📊',label:'Reports',ur:'رپورٹ'},
     {k:'credit',icon:'⭐',label:'Credit',ur:'کریڈٹ'},
   ];
@@ -658,11 +578,10 @@ function BottomNav({tab,setTab}){
     <nav className="bottom-nav">
       {tabs.map(t=>(
         <button key={t.k} className={"nav-item"+(t.isMic?' voice-nav':'')+(tab===t.k?' active':'')} onClick={()=>setTab(t.k)}>
-          {t.isMic?(
-            <div className={"voice-fab"+(tab==='voice'?' recording':'')}>🎙️</div>
-          ):(
-            <span className="nav-icon" style={{fontSize:'22px'}}>{t.icon}</span>
-          )}
+          {t.isMic
+            ?<div className={"voice-fab"+(tab==='voice'?' rec':'')}>🎙️</div>
+            :<span className="nav-icon">{t.icon}</span>
+          }
           <span className="nav-label">{t.label}</span>
         </button>
       ))}
@@ -670,17 +589,60 @@ function BottomNav({tab,setTab}){
   );
 }
 
+/* ── ROOT APP with localStorage + PWA install ── */
 function App(){
   const[tab,setTab]=useState('dashboard');
-  const[extraTx,setExtraTx]=useState([]);
-  const addTx=useCallback((tx)=>{setExtraTx(p=>[tx,...p]);setTab('dashboard');},[]);
+  // Load from localStorage, seed if empty
+  const[txList,setTxList]=useState(()=>{
+    const saved=loadTx();
+    return saved.length>0?saved:SEED_TX;
+  });
+  const[toast,showToast]=useToast();
+  const[deferredPrompt,setDeferredPrompt]=useState(null);
+  const[showInstall,setShowInstall]=useState(false);
+
+  // Save to localStorage whenever txList changes
+  useEffect(()=>{saveTx(txList);},[txList]);
+
+  // Capture PWA install prompt
+  useEffect(()=>{
+    const handler=(e)=>{e.preventDefault();setDeferredPrompt(e);setShowInstall(true);};
+    window.addEventListener('beforeinstallprompt',handler);
+    // Register service worker
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('/hisaabai/sw.js').catch(()=>{});
+    }
+    return()=>window.removeEventListener('beforeinstallprompt',handler);
+  },[]);
+
+  const handleInstall=useCallback(async()=>{
+    if(deferredPrompt){
+      deferredPrompt.prompt();
+      const{outcome}=await deferredPrompt.userChoice;
+      if(outcome==='accepted') showToast('🎉 App installed! انسٹال ہو گیا');
+      setDeferredPrompt(null);setShowInstall(false);
+    } else {
+      showToast('برائسٹر مینیو میں Add to Home Screen دبائیں');
+    }
+  },[deferredPrompt,showToast]);
+
+  const addTx=useCallback((tx)=>{
+    setTxList(prev=>{
+      const updated=[tx,...prev];
+      saveTx(updated);
+      return updated;
+    });
+    setTab('dashboard');
+  },[]);
+
   return(
     <div className="app">
-      <Header/>
+      <div className={"toast"+(toast?' show':'')}>{toast}</div>
+      <Header onInstall={handleInstall} canInstall={showInstall}/>
       <div className="scroll-body">
-        {tab==='dashboard'&&<Dashboard txList={extraTx}/>}
-        {tab==='voice'&&<VoicePage onAdd={addTx}/>}
-        {tab==='reports'&&<Reports/>}
+        {tab==='dashboard'&&<Dashboard txList={txList} showInstall={showInstall} onInstall={handleInstall} onDismissInstall={()=>setShowInstall(false)}/>}
+        {tab==='voice'&&<VoicePage onAdd={addTx} showToast={showToast}/>}
+        {tab==='reports'&&<Reports txList={txList}/>}
         {tab==='credit'&&<CreditScore/>}
       </div>
       <BottomNav tab={tab} setTab={setTab}/>
