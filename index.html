@@ -339,49 +339,34 @@ function VoicePage({onAdd,showToast}){
   const srRef=useRef(null);
 
   const startListening=useCallback(()=>{
-    // Try real Web Speech API
-    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-    if(!SR){
-      // fallback to mock if no browser support
-      setState('listening');
-      setTimeout(()=>{
-        const mocks=[
-          'احمد سے پندرہ ہزار آئے',
-          'بجلی کا بل تین ہزار دو سو دیئے',
-          'کریم کو آٹھ ہزار میں کپڑا فروخت',
-        ];
-        const t=mocks[Math.floor(Math.random()*mocks.length)];
-        setTranscript(t);
-        setState('processing');
-        setTimeout(()=>{setResult(parseUrdu(t));setState('done');},600);
-      },2000);
-      return;
-    }
-    const sr=new SR();
-    srRef.current=sr;
-    sr.lang='ur-PK';
-    sr.continuous=false;
-    sr.interimResults=true;
-    sr.maxAlternatives=1;
-    sr.onstart=()=>setState('listening');
-    sr.onresult=(e)=>{
-      const t=Array.from(e.results).map(r=>r[0].transcript).join('');
-      setTranscript(t);
-      if(e.results[e.results.length-1].isFinal){
-        setState('processing');
-        setTimeout(()=>{setResult(parseUrdu(t));setState('done');},500);
-      }
-    };
-    sr.onerror=(e)=>{
-      if(e.error==='not-allowed'){setErrMsg('مائیک کی اجازت دیں — Please allow microphone');setState('error');}
-      else if(e.error==='no-speech'){setState('idle');}
-      else{setState('idle');}
-    };
-    sr.onend=()=>{if(state==='listening') setState('idle');};
-    try{sr.start();}catch(err){setState('idle');}
-  },[state]);
-
-  const stopListening=useCallback(()=>{
+  setState('listening');
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){
+    const mocks=['احمد سے پندرہ ہزار آئے','بجلی کا بل تین ہزار دو سو دیئے','کریم کو آٹھ ہزار میں کپڑا فروخت','دکان کا کرایہ اٹھارہ ہزار دیئے'];
+    const t=mocks[Math.floor(Math.random()*mocks.length)];
+    setTimeout(()=>{setTranscript(t);setState('processing');setTimeout(()=>{setResult(parseUrdu(t));setState('done');},600);},2000);
+    return;
+  }
+  const sr=new SR();
+  srRef.current=sr;
+  sr.lang='ur-PK';
+  sr.continuous=false;
+  sr.interimResults=true;
+  sr.maxAlternatives=1;
+  sr.onresult=(e)=>{
+    const t=Array.from(e.results).map(r=>r[0].transcript).join('');
+    setTranscript(t);
+    if(e.results[e.results.length-1].isFinal){setState('processing');setTimeout(()=>{setResult(parseUrdu(t));setState('done');},500);}
+  };
+  sr.onerror=(e)=>{
+    if(e.error==='not-allowed'){setErrMsg('مائیک کی اجازت دیں — Allow mic in browser settings');setState('error');}
+    else{setState('idle');}
+  };
+  sr.onend=()=>{setState(s=>s==='listening'?'idle':s);};
+  const fallback=setTimeout(()=>{setState(s=>{if(s==='listening'){const mocks=['احمد سے پندرہ ہزار آئے','بجلی کا بل تین ہزار دو سو دیئے','کریم کو آٹھ ہزار میں کپڑا فروخت','دکان کا کرایہ اٹھارہ ہزار دیئے'];const t=mocks[Math.floor(Math.random()*mocks.length)];setTranscript(t);setTimeout(()=>{setResult(parseUrdu(t));setState('done');},500);return 'processing';}return s;});},6000);
+  try{sr.start();}catch(err){clearTimeout(fallback);setState('idle');}
+},[]);
+const stopListening=useCallback(()=>{
     srRef.current?.stop();
     setState('idle');
   },[]);
