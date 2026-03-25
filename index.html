@@ -375,7 +375,7 @@ function VoicePage({onAdd,showToast}){
   srRef.current=sr;
   sr.lang='ur-PK';
   sr.continuous=false;
-  sr.interimResults=true;
+  sr.interimResults=false;
   sr.maxAlternatives=1;
   sr.onresult=(e)=>{
     const t=Array.from(e.results).map(r=>r[0].transcript).join('');
@@ -478,9 +478,10 @@ const stopListening=useCallback(()=>{
 
 /* ── REPORTS ── */
 function Reports({txList}){
-  const maxV=Math.max(...WEEKLY.flatMap(d=>[d.inc,d.exp]));
-  const totInc=WEEKLY.reduce((s,d)=>s+d.inc,0);
-  const totExp=WEEKLY.reduce((s,d)=>s+d.exp,0);
+  const weekly=Array.from({length:7},(_,i)=>{const dt=txList.filter(t=>new Date(t.ts).getDay()===i);return{day:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][i],ur:['\u0627\u062a\u0648\u0627\u0631','\u067e\u06cc\u0631','\u0645\u0646\u06af\u0644','\u0628\u062f\u06be','\u062c\u0645\u0639\u0631\u0627\u062a','\u062c\u0645\u0639\u06c1','\u06c1\u0641\u062a\u06c1'][i],inc:dt.filter(t=>t.type==='in').reduce((s,t)=>s+t.amount,0),exp:dt.filter(t=>t.type==='out').reduce((s,t)=>s+t.amount,0)};});
+  const maxV=Math.max(...weekly.flatMap(d=>[d.inc,d.exp]),1);
+  const totInc=weekly.reduce((s,d)=>s+d.inc,0);
+  const totExp=weekly.reduce((s,d)=>s+d.exp,0);
   return(
     <div className="page">
       <div className="card">
@@ -493,7 +494,7 @@ function Reports({txList}){
           </div>
         </div>
         <div className="bars">
-          {WEEKLY.map((d,i)=>(
+          {weekly.map((d,i)=>(
             <div key={i} className="bcol">
               <div className="bpair">
                 <div className="bar inc" style={{height:Math.max(4,d.inc/maxV*110)+'px'}}/>
