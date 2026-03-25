@@ -1,4 +1,4 @@
-const CACHE = 'hisaabai-v2';
+const CACHE = 'hisaabai-v3';
 const ASSETS = [
   '/hisaabai/',
   '/hisaabai/index.html',
