@@ -175,6 +175,21 @@ body{font-family:var(--fm);background:#e5e7eb;color:var(--g8)}
 .ib-title{font-size:13px;font-weight:600;color:var(--brand-darker)}
 .ib-sub{font-family:var(--fu);font-size:12px;color:var(--brand-dark)}
 .ib-close{font-size:18px;color:var(--g4);background:none;border:none;cursor:pointer}
+
+/* ONBOARDING */
+.onboard{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:32px 24px;background:linear-gradient(160deg,#ecfdf5 0%,#fff 60%)}
+.ob-logo{width:72px;height:72px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));border-radius:22px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-family:var(--fu);font-weight:700;box-shadow:var(--sh-brand);margin-bottom:20px}
+.ob-title{font-size:24px;font-weight:800;color:var(--g9);margin-bottom:4px;text-align:center}
+.ob-ur{font-family:var(--fu);font-size:18px;color:var(--brand-dark);margin-bottom:8px;text-align:center}
+.ob-desc{font-size:13px;color:var(--g5);text-align:center;line-height:1.6;margin-bottom:32px;max-width:280px}
+.ob-label{font-size:12px;font-weight:600;color:var(--g6);align-self:flex-start;margin-bottom:6px;letter-spacing:.3px}
+.ob-input{width:100%;padding:14px 16px;border:2px solid var(--g2);border-radius:var(--r-lg);font-size:15px;font-family:var(--fm);color:var(--g8);outline:none;transition:border .2s;margin-bottom:8px}
+.ob-input:focus{border-color:var(--brand)}
+.ob-input-ur{width:100%;padding:14px 16px;border:2px solid var(--g2);border-radius:var(--r-lg);font-size:16px;font-family:var(--fu);color:var(--g8);direction:rtl;text-align:right;outline:none;transition:border .2s;margin-bottom:20px}
+.ob-input-ur:focus{border-color:var(--brand)}
+.ob-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border:none;border-radius:var(--r-lg);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--fm);box-shadow:var(--sh-brand);transition:transform .2s}
+.ob-btn:active{transform:scale(.98)}
+.ob-btn:disabled{opacity:.5;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -235,15 +250,12 @@ function parseUrdu(text){
 
 /* ── LOCALSTORAGE ── */
 const LS_KEY='hisaabai_v1';
+const LS_NAME='hisaabai_shop';
+function loadName(){try{return localStorage.getItem(LS_NAME)||'';}catch{return '';}}
+function saveName(n){try{localStorage.setItem(LS_NAME,n);}catch{}}
 function loadTx(){try{return JSON.parse(localStorage.getItem(LS_KEY))||[];}catch{return[];}}
 function saveTx(list){try{localStorage.setItem(LS_KEY,JSON.stringify(list));}catch{}}
-const SEED_TX=[
-  {id:1001,date:'Mar 24',desc:'Cloth sale to Ahmed',ur:'احمد کو کپڑا',amount:15000,type:'in',icon:'👔'},
-  {id:1002,date:'Mar 24',desc:'Electricity bill',ur:'بجلی بل',amount:3200,type:'out',icon:'⚡'},
-  {id:1003,date:'Mar 23',desc:'Wholesale fabric',ur:'تھوک کپڑا',amount:25000,type:'out',icon:'🛒'},
-  {id:1004,date:'Mar 23',desc:'Cash sale',ur:'نقد فروخت',amount:8500,type:'in',icon:'💰'},
-  {id:1005,date:'Mar 22',desc:'Stitching order',ur:'سلائی آرڈر',amount:12000,type:'in',icon:'✂️'},
-];
+const SEED_TX=[];
 
 /* ── WEEKLY MOCK (would come from real tx) ── */
 const WEEKLY=[
@@ -260,6 +272,42 @@ function useToast(){
   return[msg,show];
 }
 
+/* ── ONBOARDING ── */
+function Onboarding({onDone}){
+  const[name,setName]=useState('');
+  const submit=()=>{
+    const n=name.trim();
+    if(!n) return;
+    saveName(n);
+    onDone(n);
+  };
+  return(
+    <div className="onboard">
+      <div className="ob-logo">حا</div>
+      <div className="ob-title">Welcome to HisaabAI</div>
+      <div className="ob-ur">حساب AI میں خوش آمدید</div>
+      <div className="ob-desc">Your free AI bookkeeper — speak in Urdu to record income and expenses instantly.</div>
+      <div className="ob-label">YOUR SHOP / BUSINESS NAME</div>
+      <input
+        className="ob-input"
+        placeholder="e.g. Ahmed Cloth Store"
+        value={name}
+        onChange={e=>setName(e.target.value)}
+        onKeyDown={e=>e.key==='Enter'&&submit()}
+        autoFocus
+      />
+      <div className="ob-label" style={{marginTop:'4px'}}>اردو میں دکان کا نام (اختیاری)</div>
+      <input
+        className="ob-input-ur"
+        placeholder="احمد کپڑا اسٹور"
+        onBlur={e=>{if(e.target.value&&!name) setName(e.target.value);}}
+      />
+      <button className="ob-btn" onClick={submit} disabled={!name.trim()}>
+        شروع کریں — Get Started →
+      </button>
+    </div>
+  );
+}
 /* ── HEADER ── */
 function Header({onInstall,canInstall}){
   return(
@@ -277,7 +325,7 @@ function Header({onInstall,canInstall}){
 }
 
 /* ── DASHBOARD ── */
-function Dashboard({txList,showInstall,onInstall,onDismissInstall}){
+function Dashboard({txList,showInstall,onInstall,onDismissInstall,shopName}){
   const totIn=txList.filter(t=>t.type==='in').reduce((s,t)=>s+t.amount,0);
   const totOut=txList.filter(t=>t.type==='out').reduce((s,t)=>s+t.amount,0);
   const net=totIn-totOut;
@@ -296,7 +344,7 @@ function Dashboard({txList,showInstall,onInstall,onDismissInstall}){
       <div className="page">
         <div className="greeting-card">
           <div className="g-sub">Good morning ☀️</div>
-          <div className="g-name">Shery's Shop</div>
+          <div className="g-name">{shopName||'میری دکان'}</div>
           <div className="g-bal-label">Net Balance</div>
           <div className="g-amount" style={{color:net>=0?'#a7f3d0':'#fca5a5'}}>Rs {net.toLocaleString()}</div>
           <div className="g-ur">خالص بقایہ</div>
@@ -581,6 +629,7 @@ function App(){
     const saved=loadTx();
     return saved.length>0?saved:SEED_TX;
   });
+  const[shopName,setShopName]=useState(()=>loadName());
   const[toast,showToast]=useToast();
   const[deferredPrompt,setDeferredPrompt]=useState(null);
   const[showInstall,setShowInstall]=useState(false);
@@ -610,6 +659,7 @@ function App(){
     }
   },[deferredPrompt,showToast]);
 
+  const handleOnboardDone=useCallback((name)=>{setShopName(name);},[]);
   const addTx=useCallback((tx)=>{
     setTxList(prev=>{
       const updated=[tx,...prev];
@@ -619,12 +669,13 @@ function App(){
     setTab('dashboard');
   },[]);
 
+  if(isNewUser) return(<div className="app"><Onboarding onDone={handleOnboardDone}/></div>);
   return(
     <div className="app">
       <div className={"toast"+(toast?' show':'')}>{toast}</div>
       <Header onInstall={handleInstall} canInstall={showInstall}/>
       <div className="scroll-body">
-        {tab==='dashboard'&&<Dashboard txList={txList} showInstall={showInstall} onInstall={handleInstall} onDismissInstall={()=>setShowInstall(false)}/>}
+        {tab==='dashboard'&&<Dashboard txList={txList} showInstall={showInstall} onInstall={handleInstall} onDismissInstall={()=>setShowInstall(false)} shopName={shopName}/>}
         {tab==='voice'&&<VoicePage onAdd={addTx} showToast={showToast}/>}
         {tab==='reports'&&<Reports txList={txList}/>}
         {tab==='credit'&&<CreditScore/>}
